@@ -1,0 +1,7 @@
+{
+    "_comment": "Copy this file, fill in your paths, and pass it with: nextflow run main.nf -params-file my_params.json",
+    "bed" : null,
+    "genome" : null,
+    "outdir" : "results",
+    "gstama_chunk_size" : 100
+}

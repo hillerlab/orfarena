@@ -1,0 +1,10 @@
+chrMini	100	1400	tx_plus_single_01	0	+	151	1354	0,0,0	1	1300	0
+chrMini	1500	2800	tx_plus_single_02	0	+	1551	2754	0,0,0	1	1300	0
+chrMini	2900	4200	tx_plus_single_03	0	+	2951	4154	0,0,0	1	1300	0
+chrMini	4300	5600	tx_plus_single_04	0	+	4351	5554	0,0,0	1	1300	0
+chrMini	5700	7200	tx_plus_spliced_05	0	+	5751	7154	0,0,0	2	650,650	0,850
+chrMini	7300	8800	tx_plus_spliced_06	0	+	7351	8754	0,0,0	2	650,650	0,850
+chrMini	8900	10400	tx_plus_spliced_07	0	+	8951	10354	0,0,0	2	650,650	0,850
+chrMini	10500	12000	tx_minus_spliced_08	0	-	10546	11949	0,0,0	2	650,650	0,850
+chrMini	12100	13600	tx_minus_spliced_09	0	-	12146	13549	0,0,0	2	650,650	0,850
+chrMini	13700	15200	tx_minus_spliced_10	0	-	13746	15149	0,0,0	2	650,650	0,850
