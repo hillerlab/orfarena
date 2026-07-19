@@ -1,0 +1,94 @@
+flowchart TD
+    %% Styles
+    classDef input fill:#e6f3ff,stroke:#4a90d9,stroke-width:2px
+    classDef process fill:#f9f9f9,stroke:#888,stroke-width:1px
+    classDef tool fill:#fff3e0,stroke:#e65100,stroke-width:1px
+    classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+
+    %% Inputs
+    A(["reference .bed"]):::input
+    B(["genome .fa / .2bit / .gz"]):::input
+    C(["blastp_db URL"]):::input
+    D(["revision"]):::input
+    E(["gstama_chunk_size"]):::input
+
+    %% Pre-processing
+    GENOME[GENOME]:::process
+    XL_CDS[xloci cds]:::tool
+    XL_EXON[xloci exon]:::tool
+    WGET[wget]:::tool --> UNTAR[untar]:::tool
+    UNTAR --> BLASTPDB[("uniprot_sprot DB")]
+
+    B --> GENOME
+    GENOME -->|genome.fa| XL_CDS
+    GENOME -->|genome.fa| XL_EXON
+    A --> XL_CDS
+    A --> XL_EXON
+    C --> WGET
+
+    %% TransDecoder
+    subgraph TD_Path ["TransDecoder"]
+        TD_LONG[TransDecoder LongOrfs]:::tool --> TD_PRED[TransDecoder Predict]:::tool
+        TD_PRED --> TD_CHOOSE[Choose 0 6 7]:::tool
+        TD_CHOOSE --> TD_MAP[map_cds]:::tool
+        TD_MAP --> TD_FMT[py_format]:::tool
+    end
+
+    %% GeneMarkST
+    subgraph GMST_Path ["GeneMarkST"]
+        GMST_DL[Download GMST]:::tool --> GMST_PRED[GeneMarkST Predict]:::tool
+        GMST_PRED --> GMST_CHOOSE[Choose 0 3 4]:::tool
+        GMST_CHOOSE --> GMST_MAP[map_cds]:::tool
+        GMST_MAP --> GMST_FMT[py_format]:::tool
+    end
+
+    %% TD2
+    subgraph TD2_Path ["TD2"]
+        TD2_LONG[TD2 LongOrfs]:::tool --> TD2_PRED[TD2 Predict]:::tool
+        TD2_PRED --> TD2_FMT[TD2 Format]:::tool
+        TD2_FMT --> TD2_MAP[map_cds]:::tool
+        TD2_MAP --> TD2_PYFMT[py_format]:::tool
+    end
+
+    %% TD2 strict
+    subgraph TD2S_Path ["TD2 strict"]
+        TD2S_LONG[TD2 LongOrfs]:::tool --> TD2S_PRED[TD2 Predict strict]:::tool
+        TD2S_PRED --> TD2S_FMT[TD2 Format]:::tool
+        TD2S_FMT --> TD2S_MAP[map_cds]:::tool
+        TD2S_MAP --> TD2S_PYFMT[py_format]:::tool
+    end
+
+    %% PSAURON
+    subgraph PSA_Path ["PSAURON"]
+        PSA_PRED[PSAURON Predict]:::tool --> PSA_FMT[py_format]:::tool
+    end
+
+    %% GSTAMA
+    subgraph GST_Path ["GSTAMA ORF"]
+        GETFASTA[bedtools getfasta]:::tool --> ORFSEEK[GSTAMA ORF Seeker]:::tool
+        ORFSEEK -->|splitFasta| BLASTP[BLASTP]:::tool
+        BLASTP -->|groupTuple| BLASTP_PARSE[GSTAMA BLASTP Parser]:::tool
+        BLASTP_PARSE --> ADDCDS[GSTAMA Add CDS Regions]:::tool
+    end
+
+    %% Connections from xloci to predictors
+    XL_EXON -->|exon.fa| TD_LONG
+    XL_EXON -->|exon.fa| GMST_DL
+    XL_EXON -->|exon.fa| TD2_LONG
+    XL_EXON -->|exon.fa| TD2S_LONG
+    XL_CDS  -->|cds.fa| PSA_PRED
+
+    %% GSTAMA inputs
+    A --> GETFASTA
+    GENOME -->|genome.fa| GETFASTA
+    BLASTPDB --> BLASTP
+    E --> ORFSEEK
+    D --> GMST_DL
+
+    %% Outputs
+    TD_FMT --> OUT_TD(["transdecoder .bed"]):::output
+    GMST_FMT --> OUT_GMST(["genemarkst .bed"]):::output
+    TD2_PYFMT --> OUT_TD2(["td2 .bed"]):::output
+    TD2S_PYFMT --> OUT_TD2S(["td2_strict .bed"]):::output
+    PSA_FMT --> OUT_PSA(["psauron .bed"]):::output
+    ADDCDS --> OUT_GST(["gstama .bed"]):::output

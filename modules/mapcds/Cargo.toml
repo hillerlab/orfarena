@@ -1,0 +1,9 @@
+[package]
+name = "map_cds"
+version = "0.0.1"
+edition = "2024"
+
+[dependencies]
+genepred = { version = "0.0.16", features = ["rayon", "mmap"] }
+clap = { version = "4.6.1", features = ["derive"] }
+rayon = "1.9.1"
