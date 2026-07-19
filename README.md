@@ -36,6 +36,25 @@
 
 ---
 
+## Arena
+
+one-shot RefSeq/TOGA2-derived annotation of the dog genome (ROSCfam1.0):
+
+
+| Tool                                                              | Threshold |       TP ↑ |       TN ↑ |   FP ↓ |    FN ↓ | Sensitivity ↑ | Specificity ↑ |       F1 ↑ | Balanced accuracy ↑ |  ROC AUC ↑ | Average precision ↑ |
+| :---------------------------------------------------------------- | --------: | ---------: | ---------: | -----: | ------: | ------------: | ------------: | ---------: | ------------------: | ---------: | ------------------: |
+| **[xORF](https://github.com/alejandrogzi/xorf)**                  |     0.500 | **24,947** |     16,335 |    118 | **360** |    **0.9858** |        0.9928 | **0.9905** |          **0.9893** | **0.9974** |          **0.9988** |
+| [TranslationAI](https://github.com/rnasys/TranslationAI)          |     0.500 |     24,325 |     16,253 |    200 |     982 |        0.9612 |        0.9878 |     0.9763 |              0.9745 |     0.9878 |              0.9918 |
+| [TD2 strict](https://github.com/Markusjsommer/TD2)                |     0.500 |     23,989 |     15,992 |    461 |   1,318 |        0.9479 |        0.9720 |     0.9642 |              0.9600 |     0.9716 |              0.9778 |
+| [TRANSAID](https://github.com/wuzengding/TRANSAID)                |     0.635 |     23,401 | **16,354** | **99** |   1,906 |        0.9247 |    **0.9940** |     0.9589 |              0.9593 |     0.9861 |              0.9893 |
+| [TD2](https://github.com/Markusjsommer/TD2)                       |     0.500 |     24,509 |     14,365 |  2,088 |     798 |        0.9685 |        0.8731 |     0.9444 |              0.9208 |     0.9793 |              0.9856 |
+| [PSAURON](https://github.com/salzberg-lab/PSAURON)                |     0.500 |     24,844 |     13,688 |  2,765 |     463 |        0.9817 |        0.8319 |     0.9390 |              0.9068 |     0.9845 |              0.9908 |
+| [TransDecoder](https://github.com/TransDecoder/TransDecoder)      |     0.500 |     17,986 |     13,394 |  3,059 |   7,321 |        0.7107 |        0.8141 |     0.7761 |              0.7624 |     0.7997 |              0.8161 |
+| [GeneMark](http://topaz.gatech.edu/GeneMark/license_download.cgi) |     0.500 |     16,517 |     13,662 |  2,791 |   8,790 |        0.6527 |        0.8304 |     0.7404 |              0.7415 |     0.7723 |              0.8388 |
+
+
+---
+
 ## Usage
 
 > [!NOTE]
