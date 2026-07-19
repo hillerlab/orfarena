@@ -12,7 +12,7 @@ docs/decisions.md
 src/test.json
 
 # Rust build artifacts
-modules/external/longread/target/
+**/target/  
 **/*.rs.bk
 
 # Editor / OS
